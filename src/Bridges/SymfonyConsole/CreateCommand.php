@@ -12,6 +12,7 @@ namespace Nextras\Migrations\Bridges\SymfonyConsole;
 use Nette\Utils\Strings;
 use Nextras;
 use Nextras\Migrations\Entities\Group;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -19,18 +20,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 
 
+#[AsCommand(name: 'migrations:create', description: 'Creates new migration file with proper name (e.g. 2015-03-14-130836-label.sql)')]
 class CreateCommand extends BaseCommand
 {
 	/** content source options */
 	const CONTENT_SOURCE_DIFF = 'diff';
 	const CONTENT_SOURCE_STDIN = 'stdin';
 	const CONTENT_SOURCE_EMPTY = 'empty';
-
-	/** @var string */
-	protected static $defaultName = 'migrations:create';
-
-	/** @var string */
-	protected static $defaultDescription = 'Creates new migration file with proper name (e.g. 2015-03-14-130836-label.sql)';
 
 	/** @var string */
 	protected $defaultContentSource = self::CONTENT_SOURCE_DIFF;
@@ -51,8 +47,6 @@ class CreateCommand extends BaseCommand
 	 */
 	protected function configure()
 	{
-		$this->setName(self::$defaultName);
-		$this->setDescription(self::$defaultDescription);
 		$this->setHelp('Prints path of the created file to standard output.');
 
 		$this->addArgument('type', InputArgument::REQUIRED, $this->getTypeArgDescription());

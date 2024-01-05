@@ -10,22 +10,17 @@
 namespace Nextras\Migrations\Bridges\SymfonyConsole;
 
 use Nextras\Migrations\Engine\Runner;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 
+#[AsCommand(name: 'migrations:continue', description: 'Updates database schema by running all new migrations')]
 class ContinueCommand extends BaseCommand
 {
-	/** @var string */
-	protected static $defaultName = 'migrations:continue';
-
-	/** @var string */
-	protected static $defaultDescription = 'Updates database schema by running all new migrations';
 
 	protected function configure()
 	{
-		$this->setName(self::$defaultName);
-		$this->setDescription(self::$defaultDescription);
 		$this->setHelp("If table 'migrations' does not exist in current database, it is created automatically.");
 	}
 
